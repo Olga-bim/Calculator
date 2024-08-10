@@ -28,19 +28,19 @@
     <button onclick="multiply('*')">*</button>
     <button onclick="сalculate('=')">=</button>
     <br>
-    <button onclick="digit9()">9</button>
-    <button onclick="digit8()">8 </button>
     <button onclick="digit7()">7</button>
+    <button onclick="digit8()">8 </button>
+    <button onclick="digit9()">9</button>
     <button onclick="plus('+')">+</button>
     <br>
-    <button onclick="digit6()">6</button>
-    <button onclick="digit5()">5</button>
     <button onclick="digit4()">4</button>
+    <button onclick="digit5()">5</button>
+    <button onclick="digit6()">6</button>
     <button onclick="minus('-')">-</button>
     <br>
-    <button onclick="digit3()">3</button>
-    <button onclick="digit2()">2</button>
     <button onclick="digit1()">1</button>
+    <button onclick="digit2()">2</button>
+    <button onclick="digit3()">3</button>
     <button onclick="digit0()">0</button>
 
 
@@ -71,8 +71,30 @@
             console.log(firstNumber);
             res.value +=operator
         }
+
+        function setOperator(operator) {
+            if (firstNumber) {
+                currentOperator = operator;
+                res.value += operator;
+                clearFlag = false
+                
+            }
+        }
         function calculate() {
-      
+      let num1 = firstNumber()
+      let num2 = secondNumber()
+      let result
+      if (currentOperator == "+"){
+      result = num1 + num2;}
+      else if (currentOperator == "-"){
+        result = num1 - num2;
+      }  else if (currentOperator == "*"){
+        result = num1 * num2;
+      }  else if (currentOperator == "/"){
+        result = num1 / num2;
+      } 
+res.value = result
+
         }
         function clearInput() {
             res.value = "0"

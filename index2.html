@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        button {
+            width: 30px;
+            height: 30px;
+            background-color: aqua;
+            margin-bottom: 2px;
+            margin-top: 5px;
+        }
+
+        input {
+            background-color: bisque;
+        }
+    </style>
+</head>
+<body>
+    <input id="res" value="0">
+    <br>
+    <button onclick="clearInput()">C</button>
+    <button onclick="setOperator('/')">/</button>
+    <button onclick="setOperator('*')">*</button>
+    <button onclick="calculate()">=</button>
+    <br>
+    <button onclick="appendDigit('7')">7</button>
+    <button onclick="appendDigit('8')">8</button>
+    <button onclick="appendDigit('9')">9</button>
+    <button onclick="setOperator('+')">+</button>
+    <br>
+    <button onclick="appendDigit('4')">4</button>
+    <button onclick="appendDigit('5')">5</button>
+    <button onclick="appendDigit('6')">6</button>
+    <button onclick="setOperator('-')">-</button>
+    <br>
+    <button onclick="appendDigit('1')">1</button>
+    <button onclick="appendDigit('2')">2</button>
+    <button onclick="appendDigit('3')">3</button>
+    <button onclick="appendDigit('0')">0</button>
+
+    <script>
+        let firstNumber = '';
+        let secondNumber = '';
+        let currentOperator = '';
+        let clearFlag = false;
+
+        function appendDigit(digit) {
+            if (clearFlag) {
+                res.value = '';
+                clearFlag = false;
+            }
+            if (res.value === "0") {
+                res.value = "";
+            }
+            if (res.value.length < 7) {
+                res.value += digit;
+            }
+
+            if (!currentOperator) {
+                firstNumber += digit;
+            } else {
+                secondNumber += digit;
+            }
+        }
+
+        function setOperator(operator) {
+            if (firstNumber) {
+                currentOperator = operator;
+                res.value += operator;
+                clearFlag = false;
+            }
+        }
+
+        function calculate() {
+            let num1 = parseFloat(firstNumber);
+            let num2 = parseFloat(secondNumber);
+            let result;
+
+            if (currentOperator === '+') {
+                result = num1 + num2;
+            } else if (currentOperator === '-') {
+                result = num1 - num2;
+            } else if (currentOperator === '*') {
+                result = num1 * num2;
+            } else if (currentOperator === '/') {
+                result = num2 !== 0 ? num1 / num2 : 'Error';
+            }
+
+            res.value = result;
+            firstNumber = result.toString();
+            secondNumber = '';
+            currentOperator = '';
+            clearFlag = true; // Для очистки при следующем вводе
+        }
+
+        function clearInput() {
+            res.value = "0";
+            firstNumber = '';
+            secondNumber = '';
+            currentOperator = '';
+            clearFlag = false;
+        }
+    </script>
+</body>
+</html>
